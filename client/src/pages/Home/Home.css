@@ -50,15 +50,15 @@
     display: grid;
     place-items: center;
 }
-.Home .Post .Engagement #likeButton {
+.Home .Post .Engagement #icon {
     font-size: 40px;
      color: grey;
 
 }
-.Home .Post .Engagement #likeButton:hover{
+.Home .Post .Engagement #icon:hover{
     cursor: pointer;
 }
-.Home .Post .Engagement #likeButton:active{
+.Home .Post .Engagement #icon:active{
     color: black;
 
 }

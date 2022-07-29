@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Image } from "cloudinary-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Profile.css";
 
 function Profile() {

@@ -35,7 +35,7 @@ router.post("/", upload.single("image"), (req, res) => {
 
     connexion.query(
       "INSERT INTO uploads (id, title, description, image, author) VALUES ( ?, ? , ? , ?, ?);",
-      [results.length + 1, title, description, imageTitre, author],
+      [results.length + 2, title, description, imageTitre, author],
       (err, result) => {
         if (err) {
           res.status(404).json({
