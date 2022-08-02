@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Upload.css";
+import "./Upload.scss";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 function Upload() {
