@@ -15,6 +15,7 @@ function Navbar() {
       <a href="/">Home</a>
       {loggedIn ? (
         <>
+          <img className="logo" src="../imgs/logo/icon-left-font-recadre.png" alt="Groupomania" />
           <a href="/upload">Upload</a>
           <a href="/profile">Profile</a>
           <a href="/register">Register</a>
