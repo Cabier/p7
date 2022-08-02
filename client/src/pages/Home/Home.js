@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Home.css";
+import "./Home.scss";
 import Axios from "axios";
 //import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

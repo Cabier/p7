@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Navbar.css";
+import "./Navbar.scss";
 import  {useEffect} from "react";
 function Navbar() {
   const [loggedIn, setLoggedIn] = useState(true);

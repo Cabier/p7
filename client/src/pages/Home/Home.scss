@@ -8,8 +8,8 @@
 }
 
 .Home .Post {
-    width: 600px;
-    height: 500px;
+    width: 50%;
+   
     border: 2px solid black;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
 
 .Home .Post .Image{
     flex: 70%;
-   background-color: aqua;
+   background-color: white;
 }
 
 .Home .Post .Image img {
@@ -26,11 +26,11 @@
 }
 
 .Home .Post .Content{
-    flex: 30%;
+    
     display: flex;
     flex-direction: column;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: pink;
+    background-color: white;
 }
 
 .Home .Post .Content .title {
@@ -61,4 +61,19 @@
 .Home .Post .Engagement #icon:active{
     color: black;
 
+}
+.trash {
+    font-size: 20px;
+    position: absolute;
+    
+    
+      color: #f57251;
+      transition: .3s;
+    &:hover {
+      color: red;
+      transition: .3s;
+      cursor: pointer;
+    }
+
+    
 }
