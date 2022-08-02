@@ -8,16 +8,17 @@
 }
 
 .Home .Post {
-    width: 50%;
+    
    
     border: 2px solid black;
     display: flex;
     flex-direction: column;
     margin: 50px;
+    width:30%;
 }
 
 .Home .Post .Image{
-    flex: 70%;
+  
    background-color: white;
 }
 
@@ -31,6 +32,7 @@
     flex-direction: column;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: white;
+    
 }
 
 .Home .Post .Content .title {
@@ -42,6 +44,7 @@
 .Home .Post .Content .description {
     flex: 50%;
     text-align: center;
+    padding-bottom: 60px;
 
 }
 
