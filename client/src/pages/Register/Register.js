@@ -5,15 +5,31 @@ import Axios from "axios";
 
 function Register() {
   const [username, setUsername] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const register = () => {
+  
+  const register = (e) => {
+    e.preventDefault();
+    const userNameError = document.getElementById(".username.error");
+    const firstNameError = document.querySelector(".firstName.error");
+    const emailError = document.querySelector(".email.error");
+    const passwordError = document.querySelector(".password.error");
     console.log(username);
     Axios.post("http://localhost:5000/user/register", {
       username: username,
+      firstName: firstName,
+      email:email,
       password: password,
-    }).then((response) => {
-      console.log("response",response);
+
+    }).then((res) => {
+      console.log("res", res);
+      if (res.data.errors) {
+        userNameError.innerHTML = res.data.errors.userName;
+        firstNameError.innerHTML = res.data.errors.firstName
+        emailError.innerHTML = res.data.errors.email;
+        passwordError.innerHTML = res.data.errors.password;
+      }
     });
   };
 
@@ -24,16 +40,36 @@ function Register() {
         <input
           type="text"
           placeholder="Username..."
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
+          onChange={(event) => 
+            setUsername(event.target.value)}
+            value={username}
+          
+        />
+        <div className="Username error"></div>
+        <input
+          type="text"
+          placeholder="firstName..."
+          onChange={(event) => 
+            setfirstName(event.target.value)}
+            value={firstName}
+          
+        />
+        <div className="firstName error"></div>
+        <input
+          type="text"
+          placeholder="email..."
+          onChange={(event) => 
+            setEmail(event.target.value)}
+            value={email}
+          
         />
         <input
           type="password"
           placeholder="Password..."
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
+          onChange={(event) => 
+            setPassword(event.target.value)}
+            value={password}
+          
         />
         <button onClick={register}>Register</button>
       </div>

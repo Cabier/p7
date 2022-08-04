@@ -30,7 +30,7 @@ function Home() {
     
 
     Axios.post("http://localhost:5000/upload/like", {
-      userLiking: localStorage.getItem("username"),
+      author: localStorage.getItem("username"),
       postId: id,
     }).then((response) => {
       
