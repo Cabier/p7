@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Navbar.scss";
 import  {useEffect} from "react";
+import Logout from "../pages/Logout/Logout";
 function Navbar() {
   const [loggedIn, setLoggedIn] = useState(true);
   
   useEffect(() => {
-    console.log(localStorage.getItem("loggedIn"));
+    
     setLoggedIn(localStorage.getItem("loggedIn"));
     console.log(loggedIn);
   }, [localStorage.getItem("loggedIn")]);
@@ -21,6 +22,7 @@ function Navbar() {
           <a href="/profile">Profile</a>
           <a href="/register">Register</a>
           <a href="/login">Login</a>
+          <Logout />
         </>
       ) : (
         <>

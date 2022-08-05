@@ -6,7 +6,7 @@ const userRoute = require("./routes/User");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const uploadRoute = require("./routes/Upload");
-
+const bodyParserErrorHandler = require('express-body-parser-error-handler')
 const app = express();
 app.use(cors());
 app.use(cookieParser());
@@ -33,5 +33,5 @@ app.use("/upload", uploadRoute);
 
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
-
+app.use(bodyParserErrorHandler());
 module.exports = app;

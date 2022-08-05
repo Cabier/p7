@@ -27,17 +27,17 @@ function Home() {
   }, []);
 
   const likePost = (id, key) => {
-    
+    var tempLikes = uploads;
+    tempLikes[key].likes = tempLikes[key].likes + 1;
 
     Axios.post("http://localhost:5000/upload/like", {
-      author: localStorage.getItem("username"),
+      userLiking: localStorage.getItem("username"),
       postId: id,
-    }).then((response) => {
-      
-      console.log("you like this post")
+    }).then((res) => {
+      setUploads(tempLikes);
     });
   };
-
+  
   return (
     <div className="Home">
       {uploads.map((val, key) => {

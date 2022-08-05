@@ -1,11 +1,20 @@
 const express = require("express");
 const router = express.Router();
-
+const bcrypt = require("bcrypt")
 const connexion = require("../database");
 
-router.post("/register", (req, res) => {
+router.post("/register",async (req, res) => {
   const username = req.body.username;
+  const firstName = req.body.firstName;
+  const email = req.body.email;
   const password = req.body.password;
+  const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
+
+    const user = {
+      ...req.body,
+      user_password: encryptedPassword,
+    };
   connexion.query("SELECT * FROM users;", username, (err, results) => {
     if (err) {
       //console.log(err)
@@ -16,8 +25,8 @@ router.post("/register", (req, res) => {
       return;
     }
     connexion.query(
-      "INSERT INTO users (id,username, password) VALUES (?,?,?);",
-      [results.length, username, password],
+      "INSERT INTO users (id,username,firstName,email, password) VALUES (?,?,?,?,?);",
+      [results.length,username,firstName,email, password],
       (err, user) => {
         if (err) {
           res.status(404).json({
@@ -65,5 +74,9 @@ router.post("/login", (req, res) => {
     }
   );
 });
-
+router.get("/logout", (req, res) => {
+  //quand l'utilisateur se deconnecte le cookie qu'on lui a injecté on va lui retirer
+  res.cookie("jwt", "", { maxAge: 1 }); // cookie va vite disparaitre 1 milliseconde
+  res.status(200).json("OUT");
+});
 module.exports = router;

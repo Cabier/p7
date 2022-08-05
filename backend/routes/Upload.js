@@ -89,23 +89,31 @@ router.get("/byUser/:username", (req, res) => {
 router.post("/like", (req, res) => {
   const userLiking = req.body.userLiking;
   const postId = req.body.postId;
-
+  console.log("postid",postId)
+  console.log("userLiking",userLiking)
   connexion.query(
-    "INSERT INTO Likes (userLiking, postId) VALUES (?,?)",
-    [userLiking, postId],
+    "INSERT INTO Likes (post_Id,userLiking) VALUES (?,?)",
+    [ postId,userLiking],
     (err, results) => {
       if (err) {
-        console.log(err);
+        res.status(404).json({ err });
+        throw err;
       }
-      connexion.query(
-        "UPDATE uploads SET likes = likes + 1 WHERE id = ?",
-        postId,
-        (err2, results2) => {
-          res.send(results);
-        }
-      );
-    }
-  );
-});
+      res.status(200).json(results);
+    });
+  });
+  router.post("/:id/likeunlike", (req, res) => {
+          const { postId } = req.body;
+          const sqlInsert = `SELECT COUNT(*) AS total FROM Likes WHERE Likes.post_Id = ${postId}`;
+          db.query(sqlInsert, (err, result) => {
+            if (err) {
+              res.status(404).json({ err });
+              throw err;
+            }
+            res.status(200).json(result);
+          });
+        
+    })
+  
 
 module.exports = router;
