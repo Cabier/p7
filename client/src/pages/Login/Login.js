@@ -20,7 +20,7 @@ function Login() {
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("username", response.data.username);
-        navigate("/");
+        navigate("/", { replace: true });
       } else {
         setErrorMessage(response.data.message);
       }

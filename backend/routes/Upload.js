@@ -74,6 +74,7 @@ router.get("/", (req, res) => {
 
 router.get("/byUser/:username", (req, res) => {
   const userName = req.params.username;
+  console.log("userName",userName)
   connexion.query(
     "SELECT * FROM uploads WHERE author = ?;",
     userName,
@@ -86,34 +87,55 @@ router.get("/byUser/:username", (req, res) => {
   );
 });
 
-router.post("/like", (req, res) => {
-  const userLiking = req.body.userLiking;
-  const postId = req.body.postId;
-  console.log("postid",postId)
-  console.log("userLiking",userLiking)
-  connexion.query(
-    "INSERT INTO Likes (post_Id,userLiking) VALUES (?,?)",
-    [ postId,userLiking],
-    (err, results) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
-      }
-      res.status(200).json(results);
-    });
+router.patch("/like", (req, res) => {
+  const {  postId,userLiking } = req.body;
+  console.log("reqbody",req.body)
+  const sqlSelect = `SELECT * FROM likes WHERE likes.post_Id = ${postId} AND likes.userLiking= ${userLiking}`;
+  connexion.query(sqlSelect, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(404).json({ err });
+      throw err;
+    }
+
+    if (result.length === 0) {
+      const sqlInsert = `INSERT INTO likes (id,userLiking, post_Id) VALUES (?,${userLiking}, ${postId})`;
+      connexion.query(sqlInsert, (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(404).json({ err });
+          throw err;
+        }
+        res.status(200).json(result);
+        console.log(res)
+      });
+    } else {
+      const sqlDelete = `DELETE FROM likes WHERE likes.userLiking = ${userLiking} AND likes.post_Id = ${postId}`;
+      connexion.query(sqlDelete, (err, result) => {
+        if (err) {
+          console.log(err);
+          res.status(404).json(err);
+          throw err;
+        }
+        res.status(200).json(result);
+      });
+    }
   });
-  router.post("/:id/likeunlike", (req, res) => {
-          const { postId } = req.body;
-          const sqlInsert = `SELECT COUNT(*) AS total FROM Likes WHERE Likes.post_Id = ${postId}`;
-          db.query(sqlInsert, (err, result) => {
-            if (err) {
-              res.status(404).json({ err });
-              throw err;
-            }
-            res.status(200).json(result);
-          });
-        
-    })
+})
+
+router.post("/like", (req, res) => {
+  const { postId } = req.body;
+  const sqlInsert = `SELECT COUNT(*) AS total FROM likes WHERE likes.post_Id = ${postId}`;
+  connexion.query(sqlInsert, (err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      throw err;
+    }
+    res.status(200).json(result);
+  });
+});
+
+
   
 
 module.exports = router;

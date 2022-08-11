@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import "./Profile.css";
 
 function Profile() {
@@ -8,7 +8,7 @@ function Profile() {
 
   useEffect(() => {
     Axios.get(
-      `http://localhost:5000/upload/byUser/${localStorage.getItem("username")}`
+      `http://localhost:3001/upload/byUser/${localStorage.getItem("username")}`
     ).then((response) => {
       setYourUploads(response.data);
     });
@@ -20,6 +20,7 @@ function Profile() {
         return (
           <div className="Post">
             <div className="Image">
+              {val.image} 
             </div>
             <div className="Content">
               <div className="title">

@@ -5,7 +5,7 @@ const connexion = require("../database");
 
 router.post("/register",async (req, res) => {
   const username = req.body.username;
-  const firstName = req.body.firstName;
+  const firstname = req.body.firstName;
   const email = req.body.email;
   const password = req.body.password;
   const salt = await bcrypt.genSalt(10);
@@ -25,8 +25,8 @@ router.post("/register",async (req, res) => {
       return;
     }
     connexion.query(
-      "INSERT INTO users (id,username,firstName,email, password) VALUES (?,?,?,?,?);",
-      [results.length,username,firstName,email, password],
+      "INSERT INTO users (id,username,firstname,email, password) VALUES (?,?,?,?,?);",
+      [results.length,username,firstname,email, password],
       (err, user) => {
         if (err) {
           res.status(404).json({

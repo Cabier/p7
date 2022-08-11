@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import cookie from "js-cookie";
+import "./Logout.scss";
 const Logout = () => {
     const removeCookie = (key) => {
       if (window !== "undefined") {
@@ -22,7 +23,7 @@ const Logout = () => {
   
     return (
       <li onClick={logout}>
-        <img src="./img/icons/logout.svg" alt="logout" />
+        <img src="./img/icons/logout.svg" alt="logout"className="sortie" />
       </li>
     );
   };
