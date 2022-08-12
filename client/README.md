@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+//mes pages ont peux y acceder meme si pas connecter mettre en page une verif avec if dans les routes
+
+//quand on s'inscrit on doit se connecter en automatique 
+
+// mettre en place un systeme pour supprimer un user
+
+//mettre en place un systeme admin is admin en boolean 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Login.scss";
 import Axios from "axios";
-
+//local storage ajouter le token 
 import { useNavigate } from "react-router-dom";
-
+//utiliser le systeme de token au lieu du systeme de cookies par rapport a p6 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
