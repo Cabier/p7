@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 const userRoute = require("./routes/User");
-const cookieParser = require("cookie-parser");
 const path = require("path");
 const uploadRoute = require("./routes/Upload");
+
+
 const bodyParserErrorHandler = require('express-body-parser-error-handler')
 const app = express();
 app.use(cors());
-app.use(cookieParser());
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", `${process.env.CLIENT_URL}`);
   res.setHeader(

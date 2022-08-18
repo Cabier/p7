@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "./Register.scss";
 
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [firstName, setfirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  let navigate = useNavigate();
   const register = (e) => {
     e.preventDefault();
     const userNameError = document.getElementById(".username.error");
@@ -21,7 +22,7 @@ function Register() {
       firstName: firstName,
       email:email,
       password: password,
-
+      
     }).then((res) => {
       console.log("res", res);
       if (res.data.errors) {
@@ -29,9 +30,13 @@ function Register() {
         firstNameError.innerHTML = res.data.errors.firstName
         emailError.innerHTML = res.data.errors.email;
         passwordError.innerHTML = res.data.errors.password;
-      }
-    });
+        
+      } else {
+        navigate("/", { replace: true });
+  }});
+    
   };
+
 
   return (
     <div className="Register">

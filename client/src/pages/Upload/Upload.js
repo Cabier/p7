@@ -29,7 +29,7 @@ function Upload() {
         console.log(err);
       });
   };
-
+  
   return (
     <div className="Upload">
       <h1>Create a post</h1>

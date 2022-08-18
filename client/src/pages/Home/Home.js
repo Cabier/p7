@@ -4,8 +4,7 @@ import Axios from "axios";
 //import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCommentAlt,
-  faThumbsDown,
+  
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,8 +28,8 @@ function Home() {
   const likePost = (id, key) => {
     var tempLikes = uploads;
     tempLikes[key].likes = tempLikes[key].likes + 1;
-
-    Axios.post("http://localhost:5000/upload/like", {
+    
+    Axios.patch("http://localhost:5000/upload/like", {
       userLiking: localStorage.getItem("username"),
       postId: id,
     }).then((res) => {
@@ -46,7 +45,7 @@ function Home() {
             <div className="Image">
               <div className="Content">
                 <img
-                  src={`${process.env.REACT_APP_API_URL}upload/Images?nameImg=${val.image}`}
+                  src={`${process.env.REACT_APP_API_URL}upload/Images?nameImg=${val.image}`}alt=""
                 />
               </div>
             </div>

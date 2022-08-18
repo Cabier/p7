@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const [errorMessage, setErrorMessage] = useState("");
 
   let navigate = useNavigate();
@@ -16,13 +16,16 @@ function Login() {
     Axios.post("http://localhost:5000/user/login", {
       username: username,
       password: password,
+      
     }).then((response) => {
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("username", response.data.username);
+        
         navigate("/", { replace: true });
       } else {
         setErrorMessage(response.data.message);
+        localStorage.setItem("token",response.data)
       }
     });
   };
