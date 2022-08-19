@@ -43,11 +43,11 @@ router.post("/register", async (req, res) => {
   });
 });
 
-router.post("/login",validateToken ,(req, res) => {
+router.post("/login",(req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const accessToken = jwt.sign({username},"importante secret");
-  res.json(accessToken);
+ // res.json(accessToken);
   console.log("token",accessToken)
   connexion.query(
     
@@ -62,7 +62,8 @@ router.post("/login",validateToken ,(req, res) => {
       }
       if (results.length > 0) {
         if (password == results[0].password) {
-          res.json({ loggedIn: true, username: username });
+          res.json({ loggedIn: true, username: username ,token : accessToken});
+
         } else {
           res.json({
             loggedIn: false,

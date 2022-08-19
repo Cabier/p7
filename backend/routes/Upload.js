@@ -86,7 +86,23 @@ router.get("/byUser/:username", (req, res) => {
     }
   );
 });
+router.get('/like/:id', (req, res) => {
 
+  const {id} = req.params;
+
+  const sqlSelect = `SELECT * FROM likes WHERE likes.post_Id = ${id}`;
+
+  connexion.query(sqlSelect, (err, results) => {
+    if (err) {
+       console.log(err);
+       res.status(404).json({ err });
+       throw err;
+    }
+
+    return res.status(200).json({ likes: results.length })
+  });
+  
+})
 router.patch("/like", (req, res) => {
   const {  postId,userLiking } = req.body;
   console.log("reqbody",req.body)
@@ -100,7 +116,7 @@ router.patch("/like", (req, res) => {
     
     
     if (result.length === 0) {
-      const sqlInsert = `INSERT INTO likes ( post_Id,userLiking) VALUES ('${postId}', ${userLiking})`;
+      const sqlInsert = `INSERT INTO likes ( post_Id,userLiking) VALUES ('${postId}', "${userLiking}")`;
       console.log(sqlInsert)
       connexion.query(sqlInsert, (err, result) => {
         if (err) {
@@ -113,7 +129,7 @@ router.patch("/like", (req, res) => {
       });
       //c'est ici que je dois ajouter le like refaire un patch avec like
     } else {
-      const sqlDelete = `DELETE FROM likes WHERE likes.post_Id = ${postId} AND  likes.userLiking = ${userLiking}`;
+      const sqlDelete = `DELETE FROM likes WHERE likes.post_Id = ${postId} AND  likes.userLiking = "${userLiking}"`;
       console.log("sqlDelete",sqlDelete)
       connexion.query(sqlDelete, (err, result) => {
         if (err) {

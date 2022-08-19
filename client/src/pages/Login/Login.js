@@ -18,14 +18,16 @@ function Login() {
       password: password,
       
     }).then((response) => {
+      console.log(response.data)
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         localStorage.setItem("username", response.data.username);
         
+        localStorage.setItem("token",response.data.token)
         navigate("/", { replace: true });
       } else {
         setErrorMessage(response.data.message);
-        localStorage.setItem("token",response.data)
+        
       }
     });
   };
