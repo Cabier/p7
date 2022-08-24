@@ -4,7 +4,7 @@ import "./Register.scss";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register(props) {
   const [username, setUsername] = useState("");
   const [firstName, setfirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +24,6 @@ function Register() {
       password: password,
       
     }).then((res) => {
-      console.log("res", res);
       if (res.data.errors) {
         userNameError.innerHTML = res.data.errors.userName;
         firstNameError.innerHTML = res.data.errors.firstName
@@ -32,7 +31,9 @@ function Register() {
         passwordError.innerHTML = res.data.errors.password;
         
       } else {
-        navigate("/", { replace: true });
+        localStorage.setItem("loggedIn", true);
+        props.setLogedIn(true);
+        navigate("/home", { replace: true });
   }});
     
   };
@@ -76,7 +77,7 @@ function Register() {
             value={password}
           
         />
-        <button onClick={register}>Register</button>
+        <button classname="registerButton"onClick={register}>Register</button>
       </div>
     </div>
   );

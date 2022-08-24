@@ -12,15 +12,10 @@ import {
 //avec uploadmap je rends les uploads individuels
 function Home() {
   const [uploads, setUploads] = useState([]);
- 
-  useEffect(() => {
-    if (!localStorage.getItem("loggedIn")) {
-      localStorage.setItem("loggedIn", false);
-    }
-  }, []);
 
   useEffect(() => {
     Axios.get("http://localhost:5000/upload").then((response) => {
+      
       setUploads(response.data);
     });
   }, []);

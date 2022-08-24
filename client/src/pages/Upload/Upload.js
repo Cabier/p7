@@ -23,7 +23,7 @@ function Upload() {
 
     Axios.post(`${process.env.REACT_APP_API_URL}upload/`, formData)
       .then(() => {
-        navigate.push("/");
+        navigate.push("/home");
       })
       .catch((err) => {
         console.log(err);
