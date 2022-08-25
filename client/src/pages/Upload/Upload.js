@@ -49,7 +49,7 @@ function Upload() {
           }}
         />
         <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-        <button onClick={upload}>Upload</button>
+        <button className="btn-upload" onClick={upload}>Upload</button>
       </div>
     </div>
   );

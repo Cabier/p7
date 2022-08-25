@@ -80,3 +80,33 @@
 
     
 }
+@media screen and (max-width:375px) {
+.Navbar {
+    display : flex;
+    flex-flow: wrap;
+}
+
+}
+@media screen and (max-width:600px) {
+
+
+}
+@media screen and (max-width:801px) {
+
+
+
+}
+
+
+@media screen and (max-width: 1080px) {
+    .little-logo {
+        display: none;
+    }
+    
+    
+
+.Home .Post {
+    width: auto;
+    margin: 10%
+}
+}

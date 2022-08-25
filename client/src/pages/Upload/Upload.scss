@@ -15,14 +15,14 @@
 }
 
 .UploadForm input,
-button {
+.btn-upload {
   margin: 5% 0;
   width: 100%;
   padding: 5%;
   font-size: 20px;
 }
 
-.UploadForm button {
+.btn-upload {
   &:hover {
     cursor: pointer;
   }
@@ -35,4 +35,18 @@ h1 {
 .Navbar {
 
     margin-bottom: 10%;
+}
+
+@media screen and (min-width:480px) {
+
+
+}
+@media screen and (min-width:600px) {
+
+
+}
+@media screen and (min-width:801px) {
+
+
+
 }

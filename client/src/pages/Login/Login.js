@@ -21,8 +21,8 @@ function Login(props) {
       if (response.data.loggedIn) {
         localStorage.setItem("loggedIn", true);
         props.setLogedIn(true);
-        //localStorage.setItem("username", response.data.username);
-        //localStorage.setItem("token",response.data.token)
+        localStorage.setItem("username", response.data.username);
+        localStorage.setItem("token",response.data.token)
         navigate("/home", { replace: true });
       }
     }).catch((err)=>{

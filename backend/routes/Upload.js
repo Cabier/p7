@@ -86,23 +86,7 @@ router.get("/byUser/:username", (req, res) => {
     }
   );
 });
-router.get('/like/:id', (req, res) => {
 
-  const {id} = req.params;
-
-  const sqlSelect = `SELECT * FROM likes WHERE likes.post_Id = ${id}`;
-
-  connexion.query(sqlSelect, (err, results) => {
-    if (err) {
-       console.log(err);
-       res.status(404).json({ err });
-       throw err;
-    }
-
-    return res.status(200).json({ likes: results.length })
-  });
-  
-})
 router.patch("/like", (req, res) => {
   const {  postId,userLiking } = req.body;
   console.log("reqbody",req.body)

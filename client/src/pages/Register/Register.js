@@ -77,7 +77,7 @@ function Register(props) {
             value={password}
           
         />
-        <button classname="registerButton"onClick={register}>Register</button>
+        <button className="registerButton"onClick={register}>Register</button>
       </div>
     </div>
   );
