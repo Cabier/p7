@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const connexion = require("../database");
-const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 router.post("/register", async (req, res) => {
   const username = req.body.username;
@@ -11,6 +12,7 @@ router.post("/register", async (req, res) => {
   const password = req.body.password;
   const hash = await bcrypt.hash(password, 10);
   console.log("hash", hash);
+  const isAdmin = req.body.isAdmin;
   connexion.query("SELECT * FROM users;", username, (err, results) => {
     if (err) {
       //console.log(err)
@@ -18,19 +20,19 @@ router.post("/register", async (req, res) => {
         message: "Error",
         data: err,
       });
-      return;
+
+      res.status(200).json({ message: "token", token });
     }
 
     connexion.query(
-      "INSERT INTO users (id,username,firstname,email, hash) VALUES (?,?,?,?,?);",
-      [results.length, username, firstname, email, hash],
+      "INSERT INTO users (id,username,firstname,email, hash,isAdmin) VALUES (?,?,?,?,?,?);",
+      [results.length, username, firstname, email, hash, isAdmin],
       (err, user) => {
         if (err) {
           res.status(404).json({
             message: "Error",
             data: err,
           });
-          return;
         }
         res.status(200).json({
           message: "succes",
@@ -61,27 +63,34 @@ router.post("/login", (req, res) => {
             return res.status(200).json({
               loggedIn: true,
               message: "Login Successful",
+              username,
+
+              token: jwt.sign({ username,admin:results[0].isAdmin }, process.env.JWT_SECRET, {
+                expiresIn: "24h",
+              }),
             });
         });
       } else {
         return res
-          .status(404)
+          .status(401)
           .send({ loggedIn: false, message: "User doesn't exist", error });
       }
     }
   );
 });
 
-exports.desactivateAccount = (req, res) => {
+router.delete("/desactivateAccount/:id", (req, res) => {
   const id = req.params.id;
-  const sql = `UPDATE users   WHERE id = ?`;
-
-  connexion.query(sql, id, (err, results) => {
-    if (err) {
-      return res.status(404).json({ err });
+  console.log("identifiant",id)
+  const sql = "DELETE FROM users WHERE username =? ";
+  const sqlParams = [id];
+  connexion.query(sql, sqlParams, (error, results) => {
+    if (error) {
+      res.status(400).json({ error: error });
+    } else {
+      res.status(200).json({ message: "Utilisateur supprimé" });
     }
-    res.localStorage.clear("token");
-    res.status(200).json("DESACTIVATE");
   });
-};
+});
+
 module.exports = router;

@@ -30,8 +30,8 @@ app.use(bodyParser.json());
 // Sécurisation des headers
 //app.use(helmet());
 app.use("/user", userRoute);
-app.use("/upload", uploadRoute);
-
+app.use("/upload",uploadRoute);
+//app.use("/auth",userRoute);
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(bodyParserErrorHandler());

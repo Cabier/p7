@@ -32,6 +32,7 @@ function Register(props) {
         
       } else {
         localStorage.setItem("loggedIn", true);
+        localStorage.setItem("username",username)
         props.setLogedIn(true);
         navigate("/home", { replace: true });
   }});

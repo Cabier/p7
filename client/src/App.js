@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 //import "./App.css";
 import {
   BrowserRouter as Router,
@@ -12,10 +12,11 @@ import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Upload from "./pages/Upload/Upload";
 import Profile from "./pages/Profile/Profile";
+import axios from "axios"
 
 function App() {
   const [loggedIn, setLogedIn] = useState(false);
-
+  axios.defaults.headers.common.authorization = `Bearer ${localStorage.token}`
   return (
     <>
       <Router>

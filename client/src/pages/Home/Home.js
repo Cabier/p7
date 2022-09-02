@@ -14,21 +14,28 @@ function Home() {
   const [uploads, setUploads] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://localhost:5000/upload").then((response) => {
-      
+    getPosts();
+    if (!localStorage.getItem("loggedIn")) {
+      localStorage.setItem("loggedIn", false);
+    }
+  }, []);
+
+  const getPosts = () => {
+    Axios.get('http://localhost:5000/upload').then((response) => {
       setUploads(response.data);
     });
-  }, []);
+  };
 
   const likePost = (id, key) => {
     var tempLikes = uploads;
     tempLikes[key].likes = tempLikes[key].likes + 1;
-    
-    Axios.patch("http://localhost:5000/upload/like", {
-      userLiking: localStorage.getItem("username"),
+
+    Axios.patch('http://localhost:5000/upload/like', {
+      userLiking: localStorage.getItem("token"),
       postId: id,
     }).then((res) => {
       setUploads(tempLikes);
+      getPosts();
     });
   };
   

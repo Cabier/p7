@@ -1,21 +1,20 @@
-const {verify} = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
-const validateToken=(req,res,next) =>{
-const accessToken=req.header("accessToken")
-
-if(!accessToken) return res.json({error: "User not Logged In"})
-
-try{
-    const validToken = verify(accessToken,"importantesecret");
-
-    if(validToken){
-     return next   
+module.exports = (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+    const admin = decodedToken.admin;
+    req.auth = { userId, admin } 
+    if (req.body.userId && req.body.userId !== userId) {
+      throw "Invalid user ID";
+    } else {
+      next();
     }
-
-}catch (err) {
-    return res.json({error:err})
-}
-}
-
-
-module.exports = {validateToken}
+  } catch (e) {
+    res.status(401).json({
+      error: new Error("Invalid request!"),
+    });
+  }
+};

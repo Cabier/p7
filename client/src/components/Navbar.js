@@ -29,6 +29,7 @@ function Navbar(props) {
               props.setLogedIn(false);
               navigate("/login", { replace: true });
               localStorage.setItem("loggedIn", false);
+              localStorage.clear()
             }}
           >
             Déconnexion
@@ -38,6 +39,8 @@ function Navbar(props) {
         <>
           <a href="/register">Register</a>
           <a href="/login">Login</a>
+          
+
         </>
       )}
     </div>

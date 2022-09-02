@@ -1,27 +1,38 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import "./Profile.css";
+import { useNavigate } from "react-router-dom";
+import "./Profile.scss";
 
 function Profile() {
   const [yourUploads, setYourUploads] = useState([]);
 
+  let navigate = useNavigate();
   useEffect(() => {
     Axios.get(
-      `http://localhost:3001/upload/byUser/${localStorage.getItem("username")}`
+      `http://localhost:3000/upload/byUser/${localStorage.getItem("username")}`
     ).then((response) => {
       setYourUploads(response.data);
     });
   });
+  const desactivateAccount = (id) => {
+    id=localStorage.getItem("username")
+    Axios.delete(`http://localhost:3000/user/desactivateAccount/${id}`);
+
+    localStorage.clear();
+
+    navigate("/register", { replace: true });
+  };
+
   return (
     <div className="Profile">
       <h1>{localStorage.getItem("username")}</h1>
+      <button className="delete_account" onClick={desactivateAccount}>
+        Désactiver le compte
+      </button>
       {yourUploads.map((val, key) => {
         return (
           <div className="Post">
-            <div className="Image">
-              {val.image} 
-            </div>
+            <div className="Image">{val.image}</div>
             <div className="Content">
               <div className="title">
                 {" "}
