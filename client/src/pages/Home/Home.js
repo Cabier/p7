@@ -5,19 +5,20 @@ import Axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   
-  faThumbsUp,
+  faThumbsUp,faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
 //respondtata c'est l'array qu'on return
 //avec uploadmap je rends les uploads individuels
 function Home() {
   const [uploads, setUploads] = useState([]);
-
+  
   useEffect(() => {
     getPosts();
     if (!localStorage.getItem("loggedIn")) {
       localStorage.setItem("loggedIn", false);
     }
+    
   }, []);
 
   const getPosts = () => {
@@ -38,7 +39,22 @@ function Home() {
       getPosts();
     });
   };
-  
+  const handleClick = () => {
+    const deletePost = async () => {
+      try {
+        const answer =window.confirm('Are you sure to delete post ?')
+        if(!answer) return
+        const response = await Axios.delete(
+          "http://localhost:5000/upload/delete"
+        );
+        if (response.status === 200) document.location.reload();
+      } catch (err) {
+        throw err;
+      }
+    };
+    deletePost();
+  };
+
   return (
     <div className="Home">
       {uploads.map((val, key) => {
@@ -49,11 +65,18 @@ function Home() {
                 <img
                   src={`${process.env.REACT_APP_API_URL}upload/Images?nameImg=${val.image}`}alt=""
                 />
+                <FontAwesomeIcon
+              id className="trash"
+              icon={faTrash} 
+              onClick={handleClick}
+                
+              
+              />
               </div>
             </div>
             <div className="Content">
               <div className="title">
-                {val.title} / by @{val.author}
+                {val.title} / posté par :  {val.author}
               </div>
               <div className="description">{val.description}</div>
             </div>
@@ -65,8 +88,8 @@ function Home() {
                 
                 }}
               />
-
               {val.likes}
+              
             </div>
           </div>
         );

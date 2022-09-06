@@ -12,15 +12,18 @@ function Profile() {
       `http://localhost:3000/upload/byUser/${localStorage.getItem("username")}`
     ).then((response) => {
       setYourUploads(response.data);
+      
     });
   });
   const desactivateAccount = (id) => {
+    const answer =window.confirm('Are you sure to delete account ?')
+    if(!answer) return
     id=localStorage.getItem("username")
-    Axios.delete(`http://localhost:3000/user/desactivateAccount/${id}`);
+    Axios.delete(`http://localhost:5000/user/desactivateAccount/${id}`);
 
     localStorage.clear();
 
-    navigate("/register", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   return (

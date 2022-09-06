@@ -32,7 +32,7 @@ function Navbar(props) {
               localStorage.clear()
             }}
           >
-            Déconnexion
+            Disconnect
           </button>
         </>
       ) : (
